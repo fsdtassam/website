@@ -1,5 +1,32 @@
 [
   {
+    "id": "fish",
+    "project": "Livelihood generation for fishery farmers",
+    "note": "Azim Premji Foundation · Morigaon",
+    "members": [
+      [
+        "Sri Jayanta Borah",
+        "Director"
+      ],
+      [
+        "Mrs Dipali Kakaty",
+        "Project Manager"
+      ],
+      [
+        "Mr Abul Kalam Azad",
+        "District Coordinator"
+      ],
+      [
+        "Mr Zeherul Islam",
+        "Field Coordinator"
+      ],
+      [
+        "Chandana Das",
+        "Accountant"
+      ]
+    ]
+  },
+  {
     "id": "ti",
     "project": "Targeted Intervention project",
     "note": "Assam State AIDS Control Society · Jorabat",
@@ -27,33 +54,6 @@
       [
         "Rashmi Rekha Borah",
         "Outreach Worker"
-      ]
-    ]
-  },
-  {
-    "id": "fish",
-    "project": "Livelihood generation for fishery farmers",
-    "note": "Azim Premji Foundation · Morigaon",
-    "members": [
-      [
-        "Sri Jayanta Borah",
-        "Director"
-      ],
-      [
-        "Mrs Dipali Kakaty",
-        "Project Manager"
-      ],
-      [
-        "Mr Abul Kalam Azad",
-        "District Coordinator"
-      ],
-      [
-        "Mr Zeherul Islam",
-        "Field Coordinator"
-      ],
-      [
-        "Chandana Das",
-        "Accountant"
       ]
     ]
   }
