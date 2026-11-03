@@ -157,6 +157,7 @@ const TABS={
     {k:'body',l:'About the role',t:'area',full:1}]}
 };
 const $=id=>document.getElementById(id);
+const localDate=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 const st=$('status');
 function say(msg,kind){st.textContent=msg;st.className='status'+(kind?' '+kind:'')}
 let cfg={owner:'',repo:'',branch:'main',token:''};
@@ -243,7 +244,7 @@ $('cancel').onclick=closeForm;
 function openForm(item){
   const T=TABS[tab];editing=item?item.id:null;
   $('form-title').textContent=(item?'Edit ':'New ')+T.one;
-  const td=new Date().toISOString().slice(0,10);
+  const td=localDate();
   $('fields').innerHTML=T.fields.map(f=>{
     let v=item?item[f.k]??'':(f.today?td:'');
     if((f.k==='stats'||f.k==='members')&&Array.isArray(v))v=v.map(s=>s.join(' | ')).join('\n');
@@ -271,7 +272,7 @@ $('thumbs').addEventListener('click',e=>{const b=e.target.closest('button');if(!
   if(b.dataset.r&&+b.dataset.r<photoList.length-1){const i=+b.dataset.r;[photoList[i+1],photoList[i]]=[photoList[i],photoList[i+1]]}
   renderThumbs()});
 const slug=s=>s.toLowerCase().replace(/\.[^.]+$/,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,40)||'file';
-const stamp=()=>new Date().toISOString().slice(0,10).replace(/-/g,'');
+const stamp=()=>localDate().replace(/-/g,'');
 function readFile(f){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(String(r.result).split(',')[1]);r.onerror=rej;r.readAsDataURL(f)})}
 async function shrink(file){
   const bmp=await createImageBitmap(file,{imageOrientation:'from-image'}).catch(()=>null);
@@ -314,7 +315,7 @@ $('form').addEventListener('submit',async e=>{
       item.photos=out;
     }
     await commit(list=>{const i=list.findIndex(x=>x.id===item.id);if(i>=0)list[i]=item;else if(T.sort)list.push(item);else list.unshift(item);return list},
-      (editing?'Update ':'Add ')+T.one+': '+(item.title||item.name||item.project),'Saved. The website will show it in about a minute.');
+      (editing?'Update ':'Add ')+T.one+': '+(item.title||item.name||item.project),'Saved. The website will show it in 2–3 minutes (refresh the page).');
     closeForm();
   }catch(err){say(err.message,'err')}
   finally{$('save').disabled=false}

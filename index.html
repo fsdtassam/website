@@ -653,7 +653,7 @@ footer b{color:#f3faf0;font-family:var(--display)}
 <footer>
   <div class="wrap">
     <div><b>Foundation for Sustainable Development Trust</b><br>Panjabari, Guwahati, Assam</div>
-    <div>fsdtassam.in · Reg. No. RS/KAM/240/X/188 · PAN AAAAF2427P</div>
+    <div>fsdtassam.org · Reg. No. RS/KAM/240/X/188 · PAN AAAAF2427P</div>
   </div>
 </footer>
 
@@ -741,7 +741,7 @@ const today=()=>{const d=new Date();d.setHours(0,0,0,0);return d};
 const isOpen=s=>{const d=pd(s);return !d||d>=today()};
 const safeUrl=u=>/^(https?:\/\/|docs\/)[^\s"'<>]+$/i.test(u||'')?u:'';
 async function loadJSON(name,seed){
-  try{const r=await fetch('data/'+name+'.json',{cache:'no-store'});if(r.ok){const j=await r.json();if(Array.isArray(j))return j}}catch(e){}
+  try{const r=await fetch('data/'+name+'.json?v='+Date.now(),{cache:'no-store'});if(r.ok){const j=await r.json();if(Array.isArray(j))return j}}catch(e){}
   return seed;
 }
 let NOTICES=[],CAREERS=[],nf='all',cf='Job';
