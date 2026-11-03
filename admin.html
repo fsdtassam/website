@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>FSD Trust Admin</title>
+<link rel="icon" href="images/logo.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one working column — connect panel, then tabbed list + form for each kind of content; status bar pinned to the bottom */
+:root{
+  --bg:#f5f7f1;--surface:#fff;--fg:#17251a;--muted:#56655a;--line:#d9e1d3;
+  --leaf:#1d7a32;--leaf-deep:#0f4a1e;--leaf-soft:#e3efdf;--muga:#b8860b;--muga-soft:#f6ecd2;--on-leaf:#f3faf0;--bad:#b3261e;--bad-soft:#fbe9e7;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1611;--surface:#16211a;--fg:#e4ede2;--muted:#9db0a0;--line:#2a3a2e;--leaf:#5cc46f;--leaf-deep:#0c2a14;--leaf-soft:#1b3121;--muga:#e0b23f;--muga-soft:#2e2814;--on-leaf:#0c2a14;--bad:#ff8a80;--bad-soft:#3a1714;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--display);font-size:15px;line-height:1.5;padding-bottom:80px}
+.wrap{max-width:1000px;margin:0 auto;padding-inline:16px}
+header{background:var(--leaf-deep);color:#f3faf0}
+header .wrap{display:flex;align-items:center;gap:12px;padding-block:14px}
+header img{width:40px;height:40px;border-radius:50%;background:#fff}
+header h1{font-size:1.15rem;margin:0}
+header a{margin-left:auto;color:#cfe3cb;font-size:.9rem}
+h2{font-size:1.25rem;margin:0 0 4px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:20px}
+.muted{color:var(--muted);font-size:.9rem;margin:0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 16px;margin-top:14px}
+.grid .full{grid-column:1/-1}
+label{display:grid;gap:4px;font-weight:500;font-size:.88rem}
+label small{font-weight:400;color:var(--muted)}
+input,select,textarea{font:inherit;font-size:.95rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:9px 11px;width:100%}
+textarea{resize:vertical;min-height:90px}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible{outline:3px solid var(--muga);outline-offset:1px}
+.btn{font:inherit;font-weight:700;border:0;border-radius:999px;padding:9px 18px;cursor:pointer;background:var(--leaf);color:var(--on-leaf)}
+.btn.line{background:transparent;color:var(--leaf);border:1.5px solid var(--leaf)}
+.btn:disabled{opacity:.5;cursor:wait}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:16px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.tabs button{font:inherit;font-weight:700;padding:9px 18px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--leaf);border-color:var(--leaf);color:var(--on-leaf)}
+.list{display:grid;gap:8px;margin-top:14px}
+.item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:var(--bg)}
+.item b{display:block;overflow-wrap:anywhere}
+.item small{color:var(--muted);font-family:var(--mono);font-size:.76rem;overflow-wrap:anywhere}
+.item .acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.item .acts button{font:inherit;font-size:.82rem;font-weight:700;border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:8px;padding:5px 10px;cursor:pointer}
+.item .acts button.del{color:var(--bad)}
+.item .acts button.sure{background:var(--bad);color:#fff;border-color:var(--bad)}
+.tag{font-size:.72rem;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--muga-soft);color:var(--muga);margin-right:6px}
+.empty{color:var(--muted);border:1px dashed var(--line);border-radius:10px;padding:18px;text-align:center}
+.status{position:fixed;left:0;right:0;bottom:0;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));background:var(--surface);border-top:1px solid var(--line);font-weight:500;z-index:5}
+.status.ok{background:var(--leaf-soft);color:var(--leaf)}
+.status.err{background:var(--bad-soft);color:var(--bad)}
+.file-now{font-family:var(--mono);font-size:.8rem;color:var(--muted);overflow-wrap:anywhere;margin:0}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.thumb{position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:var(--bg)}
+.thumb img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.thumb .tb{display:flex;align-items:center;justify-content:space-between;gap:4px;padding:4px}
+.thumb button{font:inherit;font-size:.75rem;font-weight:700;border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:6px;padding:2px 7px;cursor:pointer}
+.thumb button.rm{color:var(--bad)}
+.thumb.new{outline:2px solid var(--muga)}
+[hidden]{display:none!important}
+@media (max-width:640px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><img src="images/logo.png" alt=""><h1>FSD Trust · Website admin</h1><a href="./">View website</a></div></header>
+
+<main class="wrap">
+  <section class="panel" id="connect">
+    <h2>Connect to GitHub</h2>
+    <p class="muted">Each person uses their own access token: a fine-grained token with <b>Contents: Read and write</b> permission for the website repository only. The token is kept in this browser and is not shared with anyone. Press "Forget on this device" when using a shared computer.</p>
+    <div class="grid">
+      <label>Repository owner (account or organisation)<input id="g-owner" placeholder="e.g. fsdtassam" autocomplete="off"></label>
+      <label>Repository name<input id="g-repo" placeholder="e.g. fsdt-site" autocomplete="off"></label>
+      <label>Branch<input id="g-branch" value="main" autocomplete="off"></label>
+      <label>Access token<input id="g-token" type="password" placeholder="github_pat_…" autocomplete="off"></label>
+    </div>
+    <div class="row">
+      <button class="btn" id="g-save" type="button">Connect</button>
+      <button class="btn line" id="g-forget" type="button">Forget on this device</button>
+    </div>
+  </section>
+
+  <div id="work" hidden>
+    <div class="tabs" role="tablist" id="tabs"></div>
+
+    <section class="panel">
+      <div class="row" style="margin-top:0;justify-content:space-between">
+        <div><h2 id="list-title"></h2><p class="muted" id="list-sub"></p></div>
+        <button class="btn" id="add" type="button">Add new</button>
+      </div>
+      <div class="list" id="list"></div>
+    </section>
+
+    <form class="panel" id="form" hidden novalidate>
+      <h2 id="form-title"></h2>
+      <div class="grid" id="fields"></div>
+      <div class="grid" id="attach">
+        <label class="full">Attach a document <small>(PDF, Word or image, up to 20 MB)</small><input id="f-upload" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"></label>
+        <label class="full">…or paste a link to the document<input id="f-file" placeholder="https://… or leave blank"></label>
+        <p class="file-now full" id="file-now"></p>
+      </div>
+      <div class="grid" id="photos">
+        <label class="full">Add photos <small>(you can choose several; large photos are resized automatically)</small><input id="f-photos" type="file" accept="image/*" multiple></label>
+        <div class="full"><p class="muted" id="ph-note">Photos in this entry, in the order shown on the website:</p><div class="thumbs" id="thumbs"></div></div>
+      </div>
+      <div class="row">
+        <button class="btn" id="save" type="submit">Save &amp; publish</button>
+        <button class="btn line" id="cancel" type="button">Cancel</button>
+      </div>
+    </form>
+  </div>
+</main>
+
+<div class="status" id="status" role="status">Enter your GitHub details and press Connect.</div>
+
+<script>
+const AREAS=[['health','Health & welfare'],['water','Water & sanitation'],['liv','Livelihoods'],['craft','Handloom & crafts'],['env','Environment'],['skill','Skills & education']];
+const STATUS=[['on','Ongoing'],['done','Completed'],['soon','Coming soon']];
+const TABS={
+  projects:{label:'Projects',one:'project',list:'Projects in the register',sub:'Shown in this order on the website. New projects go to the top. The "projects sanctioned" and "running now" figures update by themselves.',fields:[
+    {k:'title',l:'Project name',t:'text',req:1,full:1},
+    {k:'agency',l:'Sanctioning agency / funder',t:'text',req:1},
+    {k:'location',l:'Location',t:'text'},
+    {k:'status',l:'Status',t:'select',o:STATUS},
+    {k:'area',l:'Area of work',t:'select',o:AREAS}]},
+  gallery:{label:'Gallery',one:'gallery entry',list:'Gallery entries',sub:'Each entry is one project or event with its photos. New entries go to the top.',photos:1,fields:[
+    {k:'name',l:'Project or event name',t:'text',req:1},
+    {k:'place',l:'Place',t:'text'},
+    {k:'tag',l:'Supported by',t:'text',ph:'e.g. Azim Premji Foundation, or FSD Trust'},
+    {k:'stats',l:'Key figures',t:'area',hint:'One per line, number first, e.g.  560 | households surveyed',full:1},
+    {k:'text',l:'Short description',t:'area',full:1}]},
+  staff:{label:'Project staff',one:'project team',list:'Project teams',sub:'Each team is shown as a panel under Team on the website, in this order.',fields:[
+    {k:'project',l:'Project name',t:'text',req:1,ph:'e.g. Targeted Intervention project'},
+    {k:'note',l:'Funder and place',t:'text',ph:'e.g. Assam State AIDS Control Society · Jorabat'},
+    {k:'members',l:'Staff',t:'area',full:1,hint:'One person per line: Name | Designation. Write Vacant as the name for an empty post, e.g.  Vacant | Project Manager'}]},
+  notices:{label:'Notice Board',one:'notice',list:'Notices on the website',sub:'Newest first by date of issue.',sort:'date',attach:1,fields:[
+    {k:'type',l:'Type',t:'select',o:['Tender','Office order','Circular','Announcement','Result']},
+    {k:'date',l:'Date of issue',t:'date',req:1,today:1},
+    {k:'title',l:'Title',t:'text',req:1,full:1},
+    {k:'ref',l:'Reference number',t:'text',ph:'e.g. FSDT/TND/2026/04'},
+    {k:'lastDate',l:'Last date (for tenders, optional)',t:'date'},
+    {k:'body',l:'Details',t:'area',full:1}]},
+  careers:{label:'Careers',one:'opening',list:'Openings on the website',sub:'Openings past their last date are hidden from the website automatically.',sort:'posted',attach:1,fields:[
+    {k:'kind',l:'Type',t:'select',o:['Job','Internship']},
+    {k:'title',l:'Position',t:'text',req:1},
+    {k:'project',l:'Project',t:'text',ph:'e.g. Targeted Intervention project (ASACS)'},
+    {k:'location',l:'Location',t:'text'},
+    {k:'positions',l:'Number of positions',t:'text'},
+    {k:'pay',l:'Salary / stipend (optional)',t:'text'},
+    {k:'lastDate',l:'Last date to apply (blank = open until filled)',t:'date'},
+    {k:'posted',l:'Posted on',t:'date',req:1,today:1},
+    {k:'qualification',l:'Qualification & experience',t:'area',full:1},
+    {k:'body',l:'About the role',t:'area',full:1}]}
+};
+const $=id=>document.getElementById(id);
+const st=$('status');
+function say(msg,kind){st.textContent=msg;st.className='status'+(kind?' '+kind:'')}
+let cfg={owner:'',repo:'',branch:'main',token:''};
+try{Object.assign(cfg,JSON.parse(localStorage.getItem('fsdt-admin')||'{}'))}catch(e){}
+['owner','repo','branch','token'].forEach(k=>{if(cfg[k])$('g-'+k).value=cfg[k]});
+
+const b64e=s=>btoa(unescape(encodeURIComponent(s)));
+const b64d=s=>decodeURIComponent(escape(atob(s.replace(/\n/g,''))));
+const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+const api=p=>`https://api.github.com/repos/${encodeURIComponent(cfg.owner)}/${encodeURIComponent(cfg.repo)}/contents/${p}`;
+const H=()=>({'Authorization':'Bearer '+cfg.token,'Accept':'application/vnd.github+json'});
+function explain(r){
+  if(r.status===401)return 'The access token is wrong or has expired. Create a new one and connect again.';
+  if(r.status===403)return 'The token does not have permission. Give it "Contents: Read and write" access to this repository.';
+  if(r.status===404)return 'Repository or branch not found. Check the owner, repository and branch names.';
+  if(r.status===409||r.status===422)return 'Someone else saved at the same moment. Press Save again.';
+  return 'GitHub returned error '+r.status+'. Try again in a minute.';
+}
+async function getJSON(name){
+  const r=await fetch(api('data/'+name+'.json')+'?ref='+encodeURIComponent(cfg.branch)+'&t='+Date.now(),{headers:H(),cache:'no-store'});
+  if(r.status===404){const rr=await fetch(`https://api.github.com/repos/${encodeURIComponent(cfg.owner)}/${encodeURIComponent(cfg.repo)}`,{headers:H()});if(!rr.ok)throw new Error(explain(rr));return {list:[],sha:null}}
+  if(!r.ok)throw new Error(explain(r));
+  const j=await r.json();let list=[];
+  if(j.content){try{list=JSON.parse(b64d(j.content))}catch(e){}}
+  else if(j.download_url){try{list=await (await fetch(j.download_url,{cache:'no-store'})).json()}catch(e){}}
+  return {list:Array.isArray(list)?list:[],sha:j.sha};
+}
+async function put(path,content64,sha,msg){
+  const body={message:msg,content:content64,branch:cfg.branch};if(sha)body.sha=sha;
+  const r=await fetch(api(path),{method:'PUT',headers:{...H(),'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!r.ok)throw new Error(explain(r));
+  return r.json();
+}
+
+let tab='projects',DATA={},editing=null,photoList=[];
+$('tabs').innerHTML=Object.entries(TABS).map(([k,v],i)=>`<button type="button" role="tab" aria-selected="${i===0}" data-t="${k}">${v.label}</button>`).join('');
+$('g-save').onclick=async()=>{
+  ['owner','repo','branch','token'].forEach(k=>cfg[k]=$('g-'+k).value.trim());
+  if(!cfg.owner||!cfg.repo||!cfg.token){say('Fill in the owner, repository and token.','err');return}
+  if(!cfg.branch)cfg.branch='main';
+  try{localStorage.setItem('fsdt-admin',JSON.stringify(cfg))}catch(e){}
+  say('Connecting…');
+  try{
+    for(const k of Object.keys(TABS))DATA[k]=(await getJSON(k)).list;
+    $('work').hidden=false;renderList();say('Connected. Choose what you want to update.','ok');
+  }catch(e){say(e.message,'err')}
+};
+$('g-forget').onclick=()=>{try{localStorage.removeItem('fsdt-admin')}catch(e){};['owner','repo','token'].forEach(k=>$('g-'+k).value='');cfg.token='';$('work').hidden=true;say('Details removed from this device.')};
+$('tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  $('tabs').querySelectorAll('button').forEach(x=>x.setAttribute('aria-selected',x===b));
+  tab=b.dataset.t;closeForm();renderList();
+});
+const fmt=s=>s?s.split('-').reverse().join('/'):'';
+const lab=(opts,v)=>{const o=opts.find(x=>Array.isArray(x)?x[0]===v:x===v);return Array.isArray(o)?o[1]:(o||v||'')};
+function summary(x){
+  if(tab==='projects')return {tag:lab(STATUS,x.status),title:x.title,sm:[x.agency,x.location,lab(AREAS,x.area)].filter(Boolean).join(' · ')};
+  if(tab==='staff')return {tag:(x.members||[]).length+' staff',title:x.project,sm:x.note||''};
+  if(tab==='gallery')return {tag:(x.photos||[]).length+((x.photos||[]).length===1?' photo':' photos'),title:x.name,sm:[x.place,x.tag].filter(Boolean).join(' · ')};
+  if(tab==='notices')return {tag:x.type,title:x.title,sm:'Issued '+fmt(x.date)+(x.lastDate?' · last date '+fmt(x.lastDate):'')+(x.file?' · has document':'')};
+  return {tag:x.kind,title:x.title,sm:'Posted '+fmt(x.posted)+(x.lastDate?' · last date '+fmt(x.lastDate):' · open until filled')+(x.file?' · has document':'')};
+}
+function renderList(){
+  const T=TABS[tab];$('list-title').textContent=T.list;$('list-sub').textContent=T.sub;
+  let list=[...DATA[tab]];if(T.sort)list.sort((a,b)=>(b[T.sort]||'').localeCompare(a[T.sort]||''));
+  $('list').innerHTML=list.length?list.map(x=>{const s=summary(x);const move=!T.sort?`<button type="button" data-u="${esc(x.id)}" aria-label="Move up">↑</button><button type="button" data-w="${esc(x.id)}" aria-label="Move down">↓</button>`:'';
+    return `<div class="item"><div><b><span class="tag">${esc(s.tag)}</span>${esc(s.title)}</b><small>${esc(s.sm)}</small></div>
+    <div class="acts">${move}<button type="button" data-e="${esc(x.id)}">Edit</button><button type="button" class="del" data-d="${esc(x.id)}">Delete</button></div></div>`}).join('')
+    :`<p class="empty">Nothing here yet. Press "Add new" to post the first ${T.one}.</p>`;
+}
+$('list').addEventListener('click',async e=>{
+  const b=e.target.closest('button');if(!b)return;
+  try{
+    if(b.dataset.e)openForm(DATA[tab].find(x=>x.id===b.dataset.e));
+    if(b.dataset.u||b.dataset.w){const id=b.dataset.u||b.dataset.w,dir=b.dataset.u?-1:1;
+      await commit(list=>{const i=list.findIndex(x=>x.id===id),j=i+dir;if(i<0||j<0||j>=list.length)return list;[list[i],list[j]]=[list[j],list[i]];return list},'Reorder '+tab,'Order saved.')}
+    if(b.dataset.d){
+      if(!b.classList.contains('sure')){b.classList.add('sure');b.textContent='Confirm delete';setTimeout(()=>{b.classList.remove('sure');b.textContent='Delete'},4000);return}
+      await commit(list=>list.filter(x=>x.id!==b.dataset.d),'Delete from '+tab,'Deleted.');
+    }
+  }catch(err){}
+});
+$('add').onclick=()=>openForm(null);
+$('cancel').onclick=closeForm;
+function openForm(item){
+  const T=TABS[tab];editing=item?item.id:null;
+  $('form-title').textContent=(item?'Edit ':'New ')+T.one;
+  const td=new Date().toISOString().slice(0,10);
+  $('fields').innerHTML=T.fields.map(f=>{
+    let v=item?item[f.k]??'':(f.today?td:'');
+    if((f.k==='stats'||f.k==='members')&&Array.isArray(v))v=v.map(s=>s.join(' | ')).join('\n');
+    const id='f-'+f.k,cls=f.full?' class="full"':'',hint=f.hint?` <small>${esc(f.hint)}</small>`:'';
+    if(f.t==='select')return `<label${cls}>${f.l}<select id="${id}">${f.o.map(o=>{const[val,txt]=Array.isArray(o)?o:[o,o];return `<option value="${esc(val)}"${val===v?' selected':''}>${esc(txt)}</option>`}).join('')}</select></label>`;
+    if(f.t==='area')return `<label${cls}>${f.l}${hint}<textarea id="${id}">${esc(v)}</textarea></label>`;
+    return `<label${cls}>${f.l}${f.req?' *':''}<input id="${id}" type="${f.t}" value="${esc(v)}" placeholder="${esc(f.ph||'')}"></label>`;
+  }).join('');
+  $('attach').hidden=!T.attach;$('photos').hidden=!T.photos;
+  $('f-upload').value='';$('f-file').value=item&&item.file&&/^https?:/.test(item.file)?item.file:'';
+  $('file-now').textContent=item&&item.file?'Current document: '+item.file:'';
+  $('f-photos').value='';photoList=(item&&item.photos||[]).map(p=>({path:p}));renderThumbs();
+  $('form').hidden=false;$('form').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function closeForm(){$('form').hidden=true;editing=null;photoList.forEach(p=>p.url&&URL.revokeObjectURL(p.url));photoList=[]}
+function renderThumbs(){
+  $('thumbs').innerHTML=photoList.length?photoList.map((p,i)=>`<div class="thumb${p.file?' new':''}"><img src="${esc(p.url||p.path)}" alt=""><div class="tb">
+    <span><button type="button" data-l="${i}" aria-label="Move left">←</button> <button type="button" data-r="${i}" aria-label="Move right">→</button></span>
+    <button type="button" class="rm" data-x="${i}">Remove</button></div></div>`).join(''):'<p class="muted">No photos yet.</p>';
+}
+$('f-photos').addEventListener('change',e=>{for(const f of e.target.files)photoList.push({file:f,url:URL.createObjectURL(f)});e.target.value='';renderThumbs()});
+$('thumbs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  if(b.dataset.x){const [p]=photoList.splice(+b.dataset.x,1);p.url&&URL.revokeObjectURL(p.url)}
+  if(b.dataset.l&&+b.dataset.l>0){const i=+b.dataset.l;[photoList[i-1],photoList[i]]=[photoList[i],photoList[i-1]]}
+  if(b.dataset.r&&+b.dataset.r<photoList.length-1){const i=+b.dataset.r;[photoList[i+1],photoList[i]]=[photoList[i],photoList[i+1]]}
+  renderThumbs()});
+const slug=s=>s.toLowerCase().replace(/\.[^.]+$/,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,40)||'file';
+const stamp=()=>new Date().toISOString().slice(0,10).replace(/-/g,'');
+function readFile(f){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(String(r.result).split(',')[1]);r.onerror=rej;r.readAsDataURL(f)})}
+async function shrink(file){
+  const bmp=await createImageBitmap(file,{imageOrientation:'from-image'}).catch(()=>null);
+  if(!bmp)throw new Error(file.name+' could not be opened as a photo. Use JPG or PNG.');
+  const s=Math.min(1,1400/Math.max(bmp.width,bmp.height));
+  const c=document.createElement('canvas');c.width=Math.round(bmp.width*s);c.height=Math.round(bmp.height*s);
+  c.getContext('2d').drawImage(bmp,0,0,c.width,c.height);
+  return c.toDataURL('image/jpeg',.8).split(',')[1];
+}
+
+$('form').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const T=TABS[tab];const old=editing?DATA[tab].find(x=>x.id===editing):null;
+  const item={...(old||{}),id:editing||Date.now().toString(36)};
+  for(const f of T.fields){item[f.k]=$('f-'+f.k).value.trim();if(f.req&&!item[f.k]){say(f.l+' is required.','err');$('f-'+f.k).focus();return}}
+  if(tab==='gallery')item.stats=item.stats.split('\n').map(l=>l.split('|').map(x=>x.trim())).filter(x=>x[0]).map(x=>[x[0],x.slice(1).join(' ').trim()]);
+  if(tab==='staff')item.members=item.members.split('\n').map(l=>l.split('|').map(x=>x.trim())).filter(x=>x[0]).map(x=>[x[0],x.slice(1).join(' ').trim()]);
+  $('save').disabled=true;
+  try{
+    if(T.attach){
+      item.file=$('f-file').value.trim()||(old?old.file:'')||'';
+      const up=$('f-upload').files[0];
+      if(up){
+        if(up.size>20*1024*1024)throw new Error('The file is larger than 20 MB. Compress it or paste a link instead.');
+        say('Uploading '+up.name+'…');
+        const ext=(up.name.match(/\.[a-z0-9]+$/i)||[''])[0].toLowerCase();
+        const path='docs/'+stamp()+'-'+slug(up.name)+ext;
+        await put(path,await readFile(up),null,'Upload '+up.name);item.file=path;
+      }
+    }
+    if(T.photos){
+      const out=[];let n=0;const fresh=photoList.filter(p=>p.file).length;
+      for(const p of photoList){
+        if(!p.file){out.push(p.path);continue}
+        n++;say(`Uploading photo ${n} of ${fresh}…`);
+        const path=`images/gallery/${stamp()}-${slug(item.name)}-${Date.now().toString(36)}.jpg`;
+        await put(path,await shrink(p.file),null,'Add photo for '+item.name);
+        p.path=path;delete p.file;out.push(path);
+      }
+      item.photos=out;
+    }
+    await commit(list=>{const i=list.findIndex(x=>x.id===item.id);if(i>=0)list[i]=item;else if(T.sort)list.push(item);else list.unshift(item);return list},
+      (editing?'Update ':'Add ')+T.one+': '+(item.title||item.name||item.project),'Saved. The website will show it in about a minute.');
+    closeForm();
+  }catch(err){say(err.message,'err')}
+  finally{$('save').disabled=false}
+});
+async function commit(change,msg,done){
+  say('Saving…');
+  try{
+    const cur=await getJSON(tab);
+    const list=change(cur.list);
+    await put('data/'+tab+'.json',b64e(JSON.stringify(list,null,2)+'\n'),cur.sha,msg);
+    DATA[tab]=list;renderList();say(done,'ok');
+  }catch(err){say(err.message,'err');throw err}
+}
+if(cfg.owner&&cfg.repo&&cfg.token)$('g-save').click();
+</script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+[
+  {
+    "id": "p01",
+    "title": "Urban Homeless Shelter Home (15 beds)",
+    "agency": "City Mission Management Unit, Govt. of Assam",
+    "location": "Nabheti, Ward No. 9, Morigaon",
+    "status": "on",
+    "area": "health"
+  },
+  {
+    "id": "p02",
+    "title": "Livelihood generation for fish farmers",
+    "agency": "Azim Premji Foundation",
+    "location": "Kapili Block, Morigaon",
+    "status": "on",
+    "area": "liv"
+  },
+  {
+    "id": "p03",
+    "title": "Targeted Intervention for core composite typology",
+    "agency": "Assam State AIDS Control Society",
+    "location": "Jorabat to Sonapur",
+    "status": "on",
+    "area": "health"
+  },
+  {
+    "id": "p04",
+    "title": "Environmental restoration through income generating activities (SGP OP-8)",
+    "agency": "The Energy and Resources Institute (TERI)",
+    "location": "Kokrajhar",
+    "status": "soon",
+    "area": "env"
+  },
+  {
+    "id": "p05",
+    "title": "Environmental restoration through income generating activities (SGP OP-7)",
+    "agency": "The Energy and Resources Institute (TERI)",
+    "location": "Gossaigaon sub-division, Kokrajhar",
+    "status": "done",
+    "area": "env"
+  },
+  {
+    "id": "p06",
+    "title": "Herbal gardens in schools",
+    "agency": "National Medicinal Plants Board, Ministry of AYUSH",
+    "location": "Kamrup (M), Biswanath, Morigaon, Bongaigaon, Lakhimpur",
+    "status": "on",
+    "area": "env"
+  },
+  {
+    "id": "p07",
+    "title": "Jacquard handloom training for weavers (SAMARTH)",
+    "agency": "Directorate of Handloom & Textiles, Assam · Ministry of Textiles",
+    "location": "Greater Guwahati",
+    "status": "done",
+    "area": "craft"
+  },
+  {
+    "id": "p08",
+    "title": "Jal Jeevan Mission – Implementation Support Agency",
+    "agency": "PHE Kokrajhar Division I",
+    "location": "Kokrajhar & Dotoma Dev Blocks",
+    "status": "done",
+    "area": "water"
+  },
+  {
+    "id": "p09",
+    "title": "Jal Jeevan Mission – Implementation Support Agency",
+    "agency": "PHE Dhubri",
+    "location": "Agomoni Dev Block",
+    "status": "done",
+    "area": "water"
+  },
+  {
+    "id": "p10",
+    "title": "Jal Jeevan Mission – Implementation Support Agency",
+    "agency": "PHE Kokrajhar Division II",
+    "location": "Chirang District",
+    "status": "done",
+    "area": "water"
+  },
+  {
+    "id": "p11",
+    "title": "Jal Jeevan Mission – Implementation Support Agency",
+    "agency": "PHE Gossaigaon",
+    "location": "Gossaigaon Division, Kokrajhar",
+    "status": "done",
+    "area": "water"
+  },
+  {
+    "id": "p12",
+    "title": "Jal Jeevan Mission – Implementation Support Agency",
+    "agency": "PHE Goalpara Division",
+    "location": "Jaleswar Dev Block",
+    "status": "done",
+    "area": "water"
+  },
+  {
+    "id": "p13",
+    "title": "World Earth Day celebration",
+    "agency": "Ministry of Earth Sciences",
+    "location": "Kamrup (M)",
+    "status": "done",
+    "area": "env"
+  },
+  {
+    "id": "p14",
+    "title": "Detergent powder making (CSR)",
+    "agency": "Canara Bank",
+    "location": "Panjabari",
+    "status": "done",
+    "area": "craft"
+  },
+  {
+    "id": "p15",
+    "title": "Jacquard handloom EDP",
+    "agency": "Canara Bank",
+    "location": "Panjabari",
+    "status": "done",
+    "area": "craft"
+  },
+  {
+    "id": "p16",
+    "title": "Recreational activities for older people",
+    "agency": "Directorate of Social Welfare, Assam",
+    "location": "Kamrup (M)",
+    "status": "done",
+    "area": "health"
+  },
+  {
+    "id": "p17",
+    "title": "Recreational activities for older people",
+    "agency": "Directorate of Social Welfare, Assam",
+    "location": "Kamrup (M)",
+    "status": "done",
+    "area": "health"
+  },
+  {
+    "id": "p18",
+    "title": "Recreational activities for older people",
+    "agency": "Directorate of Social Welfare, Assam",
+    "location": "Kamrup (M)",
+    "status": "done",
+    "area": "health"
+  },
+  {
+    "id": "p19",
+    "title": "Household latrine construction & geotagging (SBM-Urban)",
+    "agency": "Guwahati Municipal Corporation",
+    "location": "Kamrup (M)",
+    "status": "done",
+    "area": "water"
+  },
+  {
+    "id": "p20",
+    "title": "Placement-linked skill training – hand embroidery",
+    "agency": "Assam State Skill Development Mission",
+    "location": "Kamrup (M)",
+    "status": "done",
+    "area": "skill"
+  },
+  {
+    "id": "p21",
+    "title": "Formation of dairy cooperatives & farmer training",
+    "agency": "Directorate of Dairy Development, Assam",
+    "location": "Kamrup, Morigaon, Biswanath",
+    "status": "done",
+    "area": "liv"
+  },
+  {
+    "id": "p22",
+    "title": "Pre-vocational training for RSTC/NRST children",
+    "agency": "Sarva Shiksha Abhiyan, Kamrup (M)",
+    "location": "GMC & Dimoria Dev Block",
+    "status": "done",
+    "area": "skill"
+  },
+  {
+    "id": "p23",
+    "title": "Pre-vocational training for RSTC/NRST children",
+    "agency": "Sarva Shiksha Abhiyan, Kamrup (M)",
+    "location": "GMC & Dimoria Dev Block",
+    "status": "done",
+    "area": "skill"
+  },
+  {
+    "id": "p24",
+    "title": "Promotion & linkage of Joint Liability Groups",
+    "agency": "NABARD",
+    "location": "Chandrapur & Dimoria Dev Blocks",
+    "status": "done",
+    "area": "liv"
+  },
+  {
+    "id": "p25",
+    "title": "Exposure visit & training for piggery farmers (CAT)",
+    "agency": "NABARD",
+    "location": "Boko Dev Block, Kamrup (R)",
+    "status": "done",
+    "area": "liv"
+  },
+  {
+    "id": "p26",
+    "title": "Jute bag making (MEDP)",
+    "agency": "NABARD",
+    "location": "Bongaon & Goroimari Dev Blocks",
+    "status": "done",
+    "area": "craft"
+  },
+  {
+    "id": "p27",
+    "title": "Jute bag making (MEDP)",
+    "agency": "NABARD",
+    "location": "Sonapur & Chandrapur, Kamrup (M)",
+    "status": "done",
+    "area": "craft"
+  },
+  {
+    "id": "p28",
+    "title": "Piggery Farmers Producer Organisation",
+    "agency": "NABARD",
+    "location": "Boko Dev Block",
+    "status": "done",
+    "area": "liv"
+  },
+  {
+    "id": "p29",
+    "title": "Craft making from jute (MEDP)",
+    "agency": "NABARD",
+    "location": "Ulani, Pachim Ulani & Darbam, Dimoria",
+    "status": "done",
+    "area": "craft"
+  },
+  {
+    "id": "p30",
+    "title": "Mock drills & fire safety training in schools",
+    "agency": "District Disaster Management Authority, Kamrup (M)",
+    "location": "Greater Guwahati",
+    "status": "done",
+    "area": "skill"
+  },
+  {
+    "id": "p31",
+    "title": "Entrepreneurship development on jute craft",
+    "agency": "MSME-DI Guwahati",
+    "location": "GMC & Dimoria Dev Block",
+    "status": "done",
+    "area": "craft"
+  },
+  {
+    "id": "p32",
+    "title": "Self-employment training under SJSRY",
+    "agency": "Guwahati Municipal Corporation",
+    "location": "Guwahati",
+    "status": "done",
+    "area": "skill"
+  }
+]

@@ -1,0 +1,169 @@
+[
+  {
+    "id": "shelter",
+    "name": "Urban Homeless Shelter",
+    "tag": "City Mission Management Unit, Govt. of Assam",
+    "place": "Nabheti, Morigaon",
+    "text": "Running since 2024, the 15-bed shelter gives homeless and vulnerable people a safe place to stay, with meals, clean water, sanitation, basic healthcare and counselling.",
+    "stats": [
+      [
+        "15",
+        "beds"
+      ],
+      [
+        "2024",
+        "running since"
+      ]
+    ],
+    "photos": [
+      "images/02.jpg",
+      "images/03.jpg",
+      "images/04.jpg",
+      "images/05.jpg"
+    ]
+  },
+  {
+    "id": "ti",
+    "name": "HIV Targeted Intervention",
+    "tag": "Assam State AIDS Control Society",
+    "place": "Jorabat, Kamrup (M)",
+    "text": "The drop-in centre at Jorabat reaches female sex workers and people who inject drugs from Byrnihat to Bumphor with HIV prevention, counselling, testing, STI and ART linkage, and community health camps.",
+    "stats": [
+      [
+        "407",
+        "FSW registered"
+      ],
+      [
+        "841",
+        "IDU registered"
+      ],
+      [
+        "573",
+        "counselling sessions"
+      ],
+      [
+        "73,955",
+        "condoms distributed"
+      ]
+    ],
+    "photos": [
+      "images/06.jpg"
+    ]
+  },
+  {
+    "id": "teri",
+    "name": "Land restoration, Kokrajhar",
+    "tag": "TERI · GEF Small Grants Programme OP-7 · Completed",
+    "place": "Khoksaguri, Kokrajhar",
+    "text": "Degraded land restored through agroforestry and herbal plantation, with farmers trained in seed treatment, bio-decomposers, vermicompost and yellow sticky traps for pest control. OP-7 is complete and the next phase under OP-8 will begin shortly.",
+    "stats": [
+      [
+        "70 ha",
+        "land restored"
+      ],
+      [
+        "357 ha",
+        "under improved practices"
+      ]
+    ],
+    "photos": [
+      "images/10.jpg",
+      "images/11.jpg",
+      "images/12.jpg",
+      "images/13.jpg"
+    ]
+  },
+  {
+    "id": "fish",
+    "name": "Fish farmer livelihoods",
+    "tag": "Azim Premji Foundation",
+    "place": "Kalmoubari & Khandapukhuri, Kapili Block, Morigaon",
+    "text": "BPL fish-farming households received training in scientific fish farming, fish health and feed management, along with fish seed and feed, and met monthly to review progress.",
+    "stats": [
+      [
+        "560",
+        "households surveyed"
+      ]
+    ],
+    "photos": [
+      "images/18.jpg",
+      "images/19.jpg",
+      "images/20.jpg",
+      "images/21.jpg"
+    ]
+  },
+  {
+    "id": "camp",
+    "name": "Mobile health camp",
+    "tag": "FSD Trust",
+    "place": "Chhaygaon & Champupara Pathar",
+    "text": "General check-ups, consultations, free medicines and health awareness for communities with little access to medical care.",
+    "stats": [],
+    "photos": [
+      "images/14.jpg",
+      "images/15.jpg"
+    ]
+  },
+  {
+    "id": "yoga",
+    "name": "International Yoga Day 2025",
+    "tag": "FSD Trust",
+    "place": "Bagharbari, Guwahati",
+    "text": "Students and community members joined a yoga session on International Day of Yoga, 21 June 2025.",
+    "stats": [],
+    "photos": [
+      "images/16.jpg",
+      "images/17.jpg"
+    ]
+  },
+  {
+    "id": "rights",
+    "name": "Women's rights awareness",
+    "tag": "FSD Trust",
+    "place": "Boko, Kamrup",
+    "text": "Sessions on gender equality, legal and constitutional rights, protection from domestic violence, workplace rights and government schemes for women.",
+    "stats": [],
+    "photos": [
+      "images/22.jpg",
+      "images/23.jpg",
+      "images/28.jpg",
+      "images/29.jpg"
+    ]
+  },
+  {
+    "id": "domestic",
+    "name": "Women domestic workers' meeting",
+    "tag": "FSD Trust",
+    "place": "Amsing Jorabat",
+    "text": "Women domestic workers discussed low wages, job insecurity and lack of social protection, and were encouraged towards collective action and skill development.",
+    "stats": [],
+    "photos": [
+      "images/24.jpg",
+      "images/25.jpg"
+    ]
+  },
+  {
+    "id": "jlg",
+    "name": "Youth Joint Liability Group",
+    "tag": "FSD Trust",
+    "place": "Gohpur, Biswanath",
+    "text": "Unemployed youth aged 20 to 45 met to explore livelihood and enterprise options, and formed a Joint Liability Group.",
+    "stats": [],
+    "photos": [
+      "images/26.jpg",
+      "images/27.jpg"
+    ]
+  },
+  {
+    "id": "nutrition",
+    "name": "Women's health & nutrition",
+    "tag": "FSD Trust",
+    "place": "Boko, Kamrup",
+    "text": "Awareness on maternal health, menstrual hygiene, balanced diets, anaemia prevention and regular medical check-ups, held on 16 February 2026.",
+    "stats": [],
+    "photos": [
+      "images/30.jpg",
+      "images/31.jpg"
+    ]
+  }
+]
